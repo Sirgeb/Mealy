@@ -1,0 +1,17 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+  font-family: Verdana, Helvetica, sans-serif;
+  background-image: url('../../public/images/mealyBg.jpg');
+  background-attachment: fixed;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}

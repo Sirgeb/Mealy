@@ -1,0 +1,33 @@
+{
+  "name": "mealy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Gabriel Aniora <chybesta@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "dev-server": "webpack-dev-server"
+  },
+  "dependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "css-loader": "0.28.4",
+    "file-loader": "^1.1.11",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "node-sass": "4.5.3",
+    "normalize.css": "7.0.0",
+    "react": "16.0.0",
+    "react-dom": "16.0.0",
+    "react-modal": "^3.4.4",
+    "react-tooltip": "^3.6.0",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.18.2",
+    "webpack": "3.1.0",
+    "webpack-dev-server": "2.5.1"
+  }
+}

@@ -1,0 +1,28 @@
+.addItem {
+  padding: $m-size;
+  display: flex;
+
+  form {
+    width:100%;
+  }
+}
+
+.addItem__input {
+  flex-grow: 1;
+  background: $light-orange;
+  border: none;
+  border-bottom: .5rem solid darken($autumn-orange, 10%);
+  padding: $s-size;
+  font-size: $s-size;
+}
+
+.addItem__dropDown {
+  background: $light-orange;
+  border: 0;
+  border-bottom: .5rem solid darken($autumn-orange, 10%);
+  font-size: $s-size;
+}
+
+.addItem__dropDown-option {
+  height: .5rem;
+}

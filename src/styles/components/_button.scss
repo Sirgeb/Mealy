@@ -1,0 +1,88 @@
+.button {
+    background: $light-orange;
+    border: none;
+    border-bottom: .3rem solid darken($light-orange, 10%);
+    font-weight: 500;
+    padding: $s-size;
+    color: $autumn-orange;
+    font-size: $s-size;
+    font-weight: bold;
+}
+
+.button--addItem {
+  background: $autumn-orange;
+  color: $light-orange;
+  border-bottom: .5rem solid darken($autumn-orange, 10%);
+
+  &:hover{
+    background: transparentize($autumn-orange, .05);
+  }
+}
+
+.button--viewItem {
+  width: 50%;
+  margin: $m-size 0;
+
+  &:hover{
+    @include button-hover;
+  }
+}
+
+.button--Item {
+  width: 100%;
+
+  &:hover{
+    @include button-hover;
+  }
+}
+
+.button--delete {
+  background: none;
+  border: none;
+  padding:0;
+  float: right;
+
+  &:hover{
+    @include button-hover--delete;
+  }
+}
+
+.button--notLaunch {
+  &:hover {
+    border-bottom: .6rem solid darken($autumn-orange, 20%);
+  }
+}
+
+.button--removeAll {
+  &:hover {
+    @include button-hover--delete;
+    border-bottom: .5rem solid red;
+  }
+}
+
+.big-button {
+    background: $autumn-orange;
+    border: 0;
+    border-bottom: .6rem solid darken($autumn-orange, 20%);
+    color: $light-orange;
+    font-weight:bold;
+    font-size: $l-size;
+    margin-bottom: 0 $m-size;
+    padding: 2.4rem;
+    width: 100%;
+    border-radius: .5rem;
+
+    &:hover{
+      background: transparentize($autumn-orange, .05);
+    }
+
+    img {
+      height: $l-size;
+      width: $l-size;
+    }
+  }
+
+.active {
+  background-color: $light-orange;
+  color: $autumn-orange;
+}

@@ -1,0 +1,21 @@
+.header {
+  background: $autumn-orange;
+  color: $light-orange;
+  padding: $m-size;
+  border-bottom: 1rem solid $mint-green;
+}
+
+.header__title {
+  margin:0;
+  font-size: $l-size;
+}
+
+.header__subtitle {
+  font-style: italic;
+  font-size: $m-size;
+}
+
+.header__date {
+  font-style: italic;
+  font-size: $m-size;
+}

@@ -1,0 +1,8 @@
+@mixin button-hover {
+  background: transparentize($light-orange, .05);
+  color: $autumn-orange;
+}
+
+@mixin button-hover--delete {
+  color: red;
+}

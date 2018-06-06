@@ -1,0 +1,26 @@
+.viewItems {
+  padding: $m-size;
+  margin: 0 auto;
+}
+
+.viewItems-ol {
+  background: $light-orange;
+  width: 90%;
+  margin: $s-size auto;
+}
+
+.viewItems-list {
+  padding: 1rem;
+  font-size: $s-size;
+}
+
+.viewItems-list--p {
+  text-align: center;
+  color: gray;
+  font-style: italic
+}
+
+
+.itemType {
+  display: flex;
+}

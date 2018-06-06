@@ -1,0 +1,15 @@
+.container {
+  max-width: 60rem;
+  margin: 0px auto;
+  padding: 0 $m-size $xl-size $m-size;
+  background: darken($light-orange, 5%);
+  border-right: 1rem double;
+  border-left: 1rem double;
+  border-color: $mint-green;
+}
+
+.container--header {
+  background:none;
+  border:none;
+  padding: 0 $m-size 0 $m-size;
+}
