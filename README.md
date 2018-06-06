@@ -18,14 +18,12 @@ Is a web application that helps you have the right meal by giving you meal sugge
 - It can't add meals on it's own
 - It can't suggest meals when nothing is added
 
-### Setup the application with:
-
+### Install dependencies with:
     npm install
+### or
+    yarn install
 
 ### Run with:
-
     npm run dev-server
-
 ### or
-
     yarn run dev-server
