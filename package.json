@@ -4,7 +4,12 @@
   "main": "index.js",
   "author": "Gabriel Aniora <chybesta@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
+  },
   "scripts": {
+    "start": "node index.js",
     "build": "webpack",
     "dev-server": "webpack-dev-server"
   },
