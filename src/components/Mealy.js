@@ -8,6 +8,7 @@ import moment from 'moment';
 import SelectedItemModal from './SelectedItemModal';
 import RemoveItemModal from './DeleteItemModal';
 import RemoveAllItemModal from './RemoveAllItemModal';
+import ListMessageModal from './ListMessageModal';
 
 export default class Mealy extends React.Component {
 
@@ -28,7 +29,8 @@ export default class Mealy extends React.Component {
       listOfDinner: false,
       listOfSupper: false
     },
-    removeAllFromAList: false
+    removeAllFromAList: false,
+    listMsg: undefined
 
   }
 
@@ -38,19 +40,19 @@ export default class Mealy extends React.Component {
   };
 
   time = () => {
-		let now = new Date();
-		let hours = now.getHours();
-		let minutes = now.getMinutes();
-		let seconds = now.getSeconds();
-		
-		let am_pm = hours >= 12 ? 'pm' : 'am'; 
-		hours %= 12; 
-		hours = hours ? hours : 12; 
-		minutes = minutes < 10 ? `0${minutes}` : minutes;
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+
+    let am_pm = hours >= 12 ? 'pm' : 'am';
+    hours %= 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
     seconds = seconds < 10 ? `0${seconds}` : seconds;
     let currentTime = `${hours} : ${minutes} : ${seconds} ${am_pm}`;
 
-    this.setState( () => ({time: currentTime}));
+    this.setState(() => ({ time: currentTime }));
   }
 
   componentDidMount() {
@@ -73,24 +75,24 @@ export default class Mealy extends React.Component {
 
       if (breakFast.length !== 0) {
         this.setState(() => ({ breakFast }));
-      } 
+      }
 
       if (lunch.length !== 0) {
         this.setState(() => ({ lunch }))
       }
-      
+
       if (dinner.length !== 0) {
         this.setState(() => ({ dinner }));
-      } 
-      
+      }
+
       if (supper.length !== 0) {
         this.setState(() => ({ supper }));
-      }   
+      }
 
       setInterval(() => {
-        this.setState( () => ({ time }));
+        this.setState(() => ({ time }));
         this.time();
-        }, 1000);
+      }, 1000);
 
     } catch (e) {
       //console.log(e);
@@ -101,20 +103,20 @@ export default class Mealy extends React.Component {
   componentDidUpdate(prevState) {
     if (prevState.time !== this.state.time) {
       localStorage.setItem('time', JSON.stringify(this.state.time));
-    } 
-    
+    }
+
     if (prevState.breakFast !== this.state.breakFast) {
       localStorage.setItem('breakFast', JSON.stringify(this.state.breakFast));
-    } 
-    
+    }
+
     if (prevState.lunch !== this.state.lunch) {
       localStorage.setItem('lunch', JSON.stringify(this.state.lunch));
     }
-    
+
     if (prevState.dinner !== this.state.dinner) {
       localStorage.setItem('dinner', JSON.stringify(this.state.dinner));
-    } 
-    
+    }
+
     if (prevState.supper !== this.state.supper) {
       localStorage.setItem('supper', JSON.stringify(this.state.supper));
     }
@@ -128,30 +130,59 @@ export default class Mealy extends React.Component {
     if (hour >= 21 || hour <= 3) return 'Night';
   }
 
-    getAnItem = () => {
-    
-      if (this.timeOfDay() === 'Morning') {
+  checkList = (meal) => {
+    if (meal.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  clearListMsg = () => {
+    this.setState(() => ({ listMsg: undefined }))
+  }
+
+  getAnItem = () => {
+
+    if (this.timeOfDay() === 'Morning') {
+      if (this.checkList(this.state.breakFast)) {
         const randomNum = Math.floor(Math.random() * this.state.breakFast.length);
         const item = this.state.breakFast[randomNum];
-        this.setState( () => ({ selectedItem: item }));
-
-      } else if (this.timeOfDay() === 'Afternoon') {
-        const randomNum = Math.floor(Math.random() * this.state.lunch.length);
-        const item = this.state.lunch[randomNum];
-        this.setState( () => ({ selectedItem: item }));
-
-      } else if (this.timeOfDay() === 'Evening') {
-        const randomNum = Math.floor(Math.random() * this.state.dinner.length);
-        const item = this.state.dinner[randomNum];
-        this.setState( () => ({ selectedItem: item }));
-
-      } else if (this.timeOfDay() === 'Night') {
-        const randomNum = Math.floor(Math.random() * this.state.supper.length);
-        const item = this.state.supper[randomNum];
-        this.setState( () => ({ selectedItem: item }));
+        this.setState(() => ({ selectedItem: item }));
+      } else {
+        this.setState(() => ({ listMsg: "Sorry, You have to add some breakfast meal" }));
       }
 
+
+    } else if (this.timeOfDay() === 'Afternoon') {
+      if (this.checkList(this.state.lunch)) {
+        const randomNum = Math.floor(Math.random() * this.state.lunch.length);
+        const item = this.state.lunch[randomNum];
+        this.setState(() => ({ selectedItem: item }));
+      } else {
+        this.setState(() => ({ listMsg: "Sorry, You have to add some lunch meal" }));
+      }
+
+    } else if (this.timeOfDay() === 'Evening') {
+      if (this.checkList(this.state.dinner)) {
+        const randomNum = Math.floor(Math.random() * this.state.dinner.length);
+        const item = this.state.dinner[randomNum];
+        this.setState(() => ({ selectedItem: item }));
+      } else {
+        this.setState(() => ({ listMsg: "Sorry, You have to add some dinner meal" }));
+      }
+
+    } else if (this.timeOfDay() === 'Night') {
+      if (this.checkList(this.state.supper)) {
+        const randomNum = Math.floor(Math.random() * this.state.supper.length);
+        const item = this.state.supper[randomNum];
+        this.setState(() => ({ selectedItem: item }));
+      } else {
+        this.setState(() => ({ listMsg: "Sorry, You have to add some supper meal" }));
+      }
     }
+
+  }
 
 
 
@@ -183,7 +214,7 @@ export default class Mealy extends React.Component {
       }
 
     } catch (e) {
-     // console.log(e);
+      // console.log(e);
     }
 
   }
@@ -194,44 +225,43 @@ export default class Mealy extends React.Component {
     let itemType = e.target.elements.itemType.selectedIndex;
 
     if (item && itemType === 0) {
-      const itemObject = (listOfItems) => ({ breakFast: listOfItems});
+      const itemObject = (listOfItems) => ({ breakFast: listOfItems });
       const itemState = this.state.breakFast;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
 
     } else if (item && itemType === 1) {
 
-      const itemObject = (listOfItems) => ({ lunch: listOfItems});
+      const itemObject = (listOfItems) => ({ lunch: listOfItems });
       const itemState = this.state.lunch;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
 
     } else if (item && itemType === 2) {
 
-      const itemObject = (listOfItems) => ({ dinner: listOfItems});
+      const itemObject = (listOfItems) => ({ dinner: listOfItems });
       const itemState = this.state.dinner;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
 
     } else if (item && itemType === 3) {
 
-      const itemObject = (listOfItems) => ({ supper: listOfItems});
+      const itemObject = (listOfItems) => ({ supper: listOfItems });
       const itemState = this.state.supper;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
-
     }
-    
+
   };
 
 
   clearSelectedItem = () => {
-    this.setState( () => ({ selectedItem: undefined }));
+    this.setState(() => ({ selectedItem: undefined }));
   }
 
   setRemoveItem = (item) => {
     const [itemName, itemType] = item;
-    this.setState(() => ({ 
+    this.setState(() => ({
       removeItem: {
         itemName,
         itemType
@@ -240,7 +270,7 @@ export default class Mealy extends React.Component {
   };
 
   clearRemoveItem = () => {
-    this.setState( () => ({    
+    this.setState(() => ({
       removeItem: {
         itemName: undefined,
         itemType: undefined
@@ -283,46 +313,46 @@ export default class Mealy extends React.Component {
           }
         }
       }
-     
+
     });
   }
 
   removeAllItem = () => {
     if (this.state.removeAllItem.listOfBreakFast === true) {
-      this.setState(() => ({ 
+      this.setState(() => ({
         breakFast: [],
         removeAllItem: {
           listOfBreakFast: false
         },
         removeAllFromAList: false
-       }));
+      }));
 
     } else if (this.state.removeAllItem.listOfLunch === true) {
-      this.setState(() => ({ 
+      this.setState(() => ({
         lunch: [],
         removeAllItem: {
           listOfLunch: false
         },
         removeAllFromAList: false
-       }));
+      }));
 
     } else if (this.state.removeAllItem.listOfDinner === true) {
-      this.setState(() => ({ 
+      this.setState(() => ({
         dinner: [],
         removeAllItem: {
           listOfDinner: false
         },
         removeAllFromAList: false
-       }));
-    }  else if (this.state.removeAllItem.listOfSupper === true) {
-      this.setState(() => ({ 
+      }));
+    } else if (this.state.removeAllItem.listOfSupper === true) {
+      this.setState(() => ({
         supper: [],
         removeAllItem: {
           listOfSupper: false
         },
         removeAllFromAList: false
-       }));
-    } 
+      }));
+    }
   };
 
   setRemoveAllItem = (itemType) => {
@@ -332,7 +362,7 @@ export default class Mealy extends React.Component {
           listOfBreakFast: true
         },
         removeAllFromAList: true
-    }));
+      }));
 
     } else if (itemType === 'lunch') {
       this.setState(() => ({
@@ -340,15 +370,15 @@ export default class Mealy extends React.Component {
           listOfLunch: true
         },
         removeAllFromAList: true
-    }));
+      }));
 
     } else if (itemType === 'dinner') {
       this.setState(() => ({
-      removeAllItem: {
-        listOfDinner: true
-      },
-      removeAllFromAList: true
-    }));
+        removeAllItem: {
+          listOfDinner: true
+        },
+        removeAllFromAList: true
+      }));
 
     } else if (itemType === 'supper') {
       this.setState(() => ({
@@ -361,8 +391,8 @@ export default class Mealy extends React.Component {
   }
 
   clearRemoveAllItem = () => {
-    this.setState(() => ({ 
-      removeAllFromAList: false 
+    this.setState(() => ({
+      removeAllFromAList: false
     }));
   }
 
@@ -371,45 +401,50 @@ export default class Mealy extends React.Component {
 
     return (
       <div>
-        <Header date={ this.displayDate() }/>
+        <Header date={this.displayDate()} />
         <div className="container">
-          <Status 
-            timeOfDay={this.timeOfDay()} 
-            displayMeal={this.displayTypeOfMeal()} 
+          <Status
+            timeOfDay={this.timeOfDay()}
+            displayMeal={this.displayTypeOfMeal()}
             time={this.state.time}
           />
-          <Action 
+          <Action
             selectedItem={this.state.selectedItem}
             getAnItem={this.getAnItem}
             hasItem={this.state.selectedItem} />
-            
+
           <AddItem addItem={this.addItem} />
 
-          <ViewItems 
+          <ViewItems
             breakFast={this.state.breakFast}
             lunch={this.state.lunch}
             dinner={this.state.dinner}
             supper={this.state.supper}
-            setRemoveItem = {this.setRemoveItem}
-            setRemoveAllItem = {this.setRemoveAllItem}
-            displayTypeOfMeal = {this.displayTypeOfMeal()}
-            />
+            setRemoveItem={this.setRemoveItem}
+            setRemoveAllItem={this.setRemoveAllItem}
+            displayTypeOfMeal={this.displayTypeOfMeal()}
+          />
 
-          <SelectedItemModal 
-             selectedItem={this.state.selectedItem}
-             clearSelectedItem={this.clearSelectedItem}
-             />
-          
+          <SelectedItemModal
+            selectedItem={this.state.selectedItem}
+            clearSelectedItem={this.clearSelectedItem}
+          />
+
+          <ListMessageModal
+            listMsg={this.state.listMsg}
+            clearListMsg={this.clearListMsg}
+          />
+
           <RemoveItemModal
             removeItemState={this.state.removeItem.itemName}
             clearRemoveItem={this.clearRemoveItem}
             removeItem={this.removeItem}
-             />
+          />
 
-           <RemoveAllItemModal 
-             removeAllItemState={this.state.removeAllFromAList}
-             removeAllItem={this.removeAllItem}
-             clearRemoveAllItem={this.clearRemoveAllItem}/>
+          <RemoveAllItemModal
+            removeAllItemState={this.state.removeAllFromAList}
+            removeAllItem={this.removeAllItem}
+            clearRemoveAllItem={this.clearRemoveAllItem} />
         </div>
       </div>
     );

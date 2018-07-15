@@ -1,8 +1,8 @@
 .header {
   background: $autumn-orange;
   color: $light-orange;
-  padding: $m-size;
-  border-bottom: 1rem solid $mint-green;
+  padding: $s-size;
+  border-bottom: 0.5rem solid $mint-green;
 }
 
 .header__title {
@@ -12,10 +12,30 @@
 
 .header__subtitle {
   font-style: italic;
+  padding: 0.5rem 0;
   font-size: $m-size;
 }
 
 .header__date {
   font-style: italic;
   font-size: $m-size;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .header {
+    padding: $m-size;
+    border-bottom: 1rem solid $mint-green;
+  }
+  .header__title {
+    font-size: $l-size;
+  }
+
+  .header__subtitle {
+    padding-top: 1rem;
+  }
+
+  .header__date {
+    font-size: $m-size;
+  }
+
 }

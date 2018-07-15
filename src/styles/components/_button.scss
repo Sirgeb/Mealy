@@ -47,11 +47,6 @@
   }
 }
 
-.button--notLaunch {
-  &:hover {
-    border-bottom: .6rem solid darken($autumn-orange, 20%);
-  }
-}
 
 .button--removeAll {
   &:hover {
@@ -66,7 +61,7 @@
     border-bottom: .6rem solid darken($autumn-orange, 20%);
     color: $light-orange;
     font-weight:bold;
-    font-size: $l-size;
+    font-size: 2.2rem;
     margin-bottom: 0 $m-size;
     padding: 2.4rem;
     width: 100%;
@@ -85,4 +80,10 @@
 .active {
   background-color: $light-orange;
   color: $autumn-orange;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .big-button {
+    font-size: $l-size;
+  }
 }

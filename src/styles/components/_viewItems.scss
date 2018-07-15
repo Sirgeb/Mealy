@@ -5,13 +5,15 @@
 
 .viewItems-ol {
   background: $light-orange;
-  width: 90%;
+  width: 100%;
   margin: $s-size auto;
+  padding: 0;
 }
 
 .viewItems-list {
   padding: 1rem;
   font-size: $s-size;
+  list-style: none;
 }
 
 .viewItems-list--p {
@@ -23,4 +25,8 @@
 
 .itemType {
   display: flex;
+}
+
+.msg {
+  font-size: $s-size;
 }

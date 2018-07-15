@@ -1,9 +1,13 @@
 .addItem {
   padding: $m-size;
   display: flex;
+  flex-direction: column;
 
+  margin: auto;
   form {
     width:100%;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -11,7 +15,7 @@
   flex-grow: 1;
   background: $light-orange;
   border: none;
-  border-bottom: .5rem solid darken($autumn-orange, 10%);
+  border-bottom: none;
   padding: $s-size;
   font-size: $s-size;
 }
@@ -19,10 +23,30 @@
 .addItem__dropDown {
   background: $light-orange;
   border: 0;
-  border-bottom: .5rem solid darken($autumn-orange, 10%);
+  border-bottom: none;
   font-size: $s-size;
 }
 
 .addItem__dropDown-option {
   height: .5rem;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .add-option {
+    flex-direction: row;
+  }
+
+  .addItem {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  .addItem__input {
+    border-bottom: .5rem solid darken($autumn-orange, 10%);
+  }
+
+  .addItem__dropDown {
+    border-bottom: .5rem solid darken($autumn-orange, 10%);
+  }
 }
