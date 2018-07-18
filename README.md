@@ -2,6 +2,8 @@
 
 Is a web application that helps you have the right meal by giving you meal suggestion based on users input
 
+- Web Url : [http://mealy-app.herokuapp.com](http://mealy-app.herokuapp.com "mealy")
+
 ### What users can do:
 
 - Every user has to add his/her favorite meals and allow the application to suggest the one to take

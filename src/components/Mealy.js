@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Action from './Action';
 import AddItem from './AddItem';
 import Header from './Header';
@@ -9,8 +9,9 @@ import SelectedItemModal from './SelectedItemModal';
 import RemoveItemModal from './DeleteItemModal';
 import RemoveAllItemModal from './RemoveAllItemModal';
 import ListMessageModal from './ListMessageModal';
+import { withAlert } from "react-alert";
 
-export default class Mealy extends React.Component {
+class Mealy extends React.Component {
 
   state = {
     time: undefined,
@@ -38,22 +39,6 @@ export default class Mealy extends React.Component {
     const now = moment();
     return now.format("dddd, Do MMMM YYYY");
   };
-
-  time = () => {
-    let now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
-
-    let am_pm = hours >= 12 ? 'pm' : 'am';
-    hours %= 12;
-    hours = hours ? hours : 12;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-    let currentTime = `${hours} : ${minutes} : ${seconds} ${am_pm}`;
-
-    this.setState(() => ({ time: currentTime }));
-  }
 
   componentDidMount() {
 
@@ -101,9 +86,6 @@ export default class Mealy extends React.Component {
   }
 
   componentDidUpdate(prevState) {
-    if (prevState.time !== this.state.time) {
-      localStorage.setItem('time', JSON.stringify(this.state.time));
-    }
 
     if (prevState.breakFast !== this.state.breakFast) {
       localStorage.setItem('breakFast', JSON.stringify(this.state.breakFast));
@@ -229,6 +211,7 @@ export default class Mealy extends React.Component {
       const itemState = this.state.breakFast;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
+      this.props.alert.success("Added Successfully");
 
     } else if (item && itemType === 1) {
 
@@ -236,6 +219,7 @@ export default class Mealy extends React.Component {
       const itemState = this.state.lunch;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
+      this.props.alert.success("Added Successfully");
 
     } else if (item && itemType === 2) {
 
@@ -243,6 +227,7 @@ export default class Mealy extends React.Component {
       const itemState = this.state.dinner;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
+      this.props.alert.success("Added Successfully");
 
     } else if (item && itemType === 3) {
 
@@ -250,6 +235,7 @@ export default class Mealy extends React.Component {
       const itemState = this.state.supper;
       this.verifyItem(item, itemState, itemObject);
       e.target.elements.input.value = '';
+      this.props.alert.success("Added Successfully");
     }
 
   };
@@ -400,13 +386,12 @@ export default class Mealy extends React.Component {
   render() {
 
     return (
-      <div>
+      <Fragment>
         <Header date={this.displayDate()} />
         <div className="container">
           <Status
             timeOfDay={this.timeOfDay()}
             displayMeal={this.displayTypeOfMeal()}
-            time={this.state.time}
           />
           <Action
             selectedItem={this.state.selectedItem}
@@ -446,7 +431,9 @@ export default class Mealy extends React.Component {
             removeAllItem={this.removeAllItem}
             clearRemoveAllItem={this.clearRemoveAllItem} />
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
+
+export default withAlert(Mealy);

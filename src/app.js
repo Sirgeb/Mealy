@@ -5,5 +5,20 @@ import moment from "moment";
 import Mealy from "./components/Mealy";
 import "./styles/style.scss";
 import "normalize.css/normalize.css";
+import { Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 
-ReactDOM.render(<Mealy />, document.getElementById("app"));
+// optional cofiguration
+const options = {
+    position: 'bottom right',
+    timeout: 5000,
+    offset: '30px',
+    transition: 'scale'
+}
+
+ReactDOM.render(
+    <AlertProvider template={AlertTemplate} {...options}>
+        <Mealy />
+    </AlertProvider>,
+    document.getElementById("app")
+);
